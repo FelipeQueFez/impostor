@@ -1,15 +1,21 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import '../palavra/tela_palavra.dart';
 
 class ParticipantesPage extends StatefulWidget {
+  final List<List<dynamic>> dados;
+
+  const ParticipantesPage({super.key, required this.dados});
+
   @override
-  _ParticipantesPageState createState() => _ParticipantesPageState();
+  State<ParticipantesPage> createState() => _ParticipantesPageState();
 }
 
 class _ParticipantesPageState extends State<ParticipantesPage> {
   final TextEditingController _controller = TextEditingController();
   final List<String> _participantes = [];
 
-  void adicionarParticipante() {
+  void _adicionarParticipante() {
     final nome = _controller.text.trim();
     if (nome.isNotEmpty && !_participantes.contains(nome)) {
       setState(() {
@@ -19,22 +25,26 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     }
   }
 
-  void removerParticipante(int index) {
-    setState(() {
-      _participantes.removeAt(index);
-    });
+  void _continuar() {
+    final palavra = _sortearPalavra();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TelaPalavra(palavra: palavra),
+      ),
+    );
   }
 
-  void continuar() {
-    // Aqui você pode passar os participantes para a próxima tela
-    print("Participantes: $_participantes");
-    // Navigator.push(context, ...);
+  String _sortearPalavra() {
+    final random = Random();
+    final indice = random.nextInt(widget.dados.length);
+    return widget.dados[indice][1];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Jogadores do Impostor')),
+      appBar: AppBar(title: const Text('Jogadores do Impostor')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -44,11 +54,11 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
               decoration: InputDecoration(
                 labelText: 'Nome do participante',
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: adicionarParticipante,
+                  icon: const Icon(Icons.add),
+                  onPressed: _adicionarParticipante,
                 ),
               ),
-              onSubmitted: (_) => adicionarParticipante(),
+              onSubmitted: (_) => _adicionarParticipante(),
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -58,16 +68,20 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
                   return ListTile(
                     title: Text(_participantes[index]),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => removerParticipante(index),
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        setState(() {
+                          _participantes.removeAt(index);
+                        });
+                      },
                     ),
                   );
                 },
               ),
             ),
             ElevatedButton(
-              onPressed: _participantes.isNotEmpty ? continuar : null,
-              child: Text('Continuar'),
+              onPressed: _participantes.isNotEmpty ? _continuar : null,
+              child: const Text('Continuar'),
             )
           ],
         ),
