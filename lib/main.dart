@@ -1,7 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
-import 'palavra/tela_palavra.dart';
 import 'participantes/participantes.dart';
 import 'servicos/csv.dart';
 

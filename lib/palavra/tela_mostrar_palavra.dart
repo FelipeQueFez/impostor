@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../feedback/tela_feedback.dart';
 
 class TelaMostrarPalavra extends StatefulWidget {
   final List<String> participantes;
@@ -34,10 +35,12 @@ class _TelaMostrarPalavraState extends State<TelaMostrarPalavra> {
         mostrarPalavra = false;
       });
     } else {
-      // Todos já viram (ou não viram) a palavra
-      // Aqui você pode navegar para a próxima fase do jogo
-      // Exemplo: Navigator.push(context, MaterialPageRoute(builder: (_) => TelaVotacao()));
-      Navigator.pop(context); // volta para o início por enquanto
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => TelaFeedback(),
+        ),
+      );
     }
   }
 
@@ -60,7 +63,8 @@ class _TelaMostrarPalavraState extends State<TelaMostrarPalavra> {
                     isImpostor
                         ? 'Você NÃO recebeu a palavra!'
                         : 'Palavra: ${widget.palavra}',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 30),
