@@ -57,7 +57,12 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
 
   @override
   Widget build(BuildContext context) {
-    final temas = ['Comida', 'Animal', 'Filme'];
+    final temas = [
+      'Comida',
+      'Animal',
+      'Filme',
+      'Objeto',
+    ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Escolha o Tema')),
