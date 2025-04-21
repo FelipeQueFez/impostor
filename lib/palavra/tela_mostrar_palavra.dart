@@ -5,11 +5,13 @@ import '../feedback/tela_feedback.dart';
 class TelaMostrarPalavra extends StatefulWidget {
   final List<String> participantes;
   final String palavra;
+  final VoidCallback onReiniciar;
 
   const TelaMostrarPalavra({
     super.key,
     required this.participantes,
     required this.palavra,
+    required this.onReiniciar,
   });
 
   @override
@@ -38,7 +40,7 @@ class _TelaMostrarPalavraState extends State<TelaMostrarPalavra> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => TelaFeedback(),
+          builder: (_) => TelaFeedback(onReiniciar: widget.onReiniciar),
         ),
       );
     }

@@ -1,11 +1,8 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import '../palavra/tela_mostrar_palavra.dart';
+import '../categorias/tela_escolher_tema.dart';
 
 class ParticipantesPage extends StatefulWidget {
-  final List<List<dynamic>> dados;
-
-  const ParticipantesPage({super.key, required this.dados});
+  const ParticipantesPage({super.key});
 
   @override
   State<ParticipantesPage> createState() => _ParticipantesPageState();
@@ -14,6 +11,13 @@ class ParticipantesPage extends StatefulWidget {
 class _ParticipantesPageState extends State<ParticipantesPage> {
   final TextEditingController _controller = TextEditingController();
   final List<String> _participantes = [];
+
+  void resetarParticipantes() {
+    setState(() {
+      _participantes.clear();
+      _controller.clear();
+    });
+  }
 
   void _adicionarParticipante() {
     final nome = _controller.text.trim();
@@ -26,22 +30,12 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   }
 
   void _continuar() {
-    final palavra = _sortearPalavra();
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => TelaMostrarPalavra(
-          participantes: _participantes,
-          palavra: palavra,
-        ),
+        builder: (_) => TelaEscolherTema(participantes: _participantes),
       ),
     );
-  }
-
-  String _sortearPalavra() {
-    final random = Random();
-    final indice = random.nextInt(widget.dados.length);
-    return widget.dados[indice][1];
   }
 
   @override

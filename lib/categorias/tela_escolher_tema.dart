@@ -1,12 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-
 import '../palavra/tela_mostrar_palavra.dart';
 import '../servicos/csv.dart';
 
 class TelaEscolherTema extends StatefulWidget {
   final List<String> participantes;
-
   const TelaEscolherTema({super.key, required this.participantes});
 
   @override
@@ -40,6 +38,9 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
         builder: (_) => TelaMostrarPalavra(
           participantes: widget.participantes,
           palavra: palavra,
+          onReiniciar: () {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
         ),
       ),
     );
@@ -48,7 +49,7 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
   String _sortearPalavra(List<List<dynamic>> dados) {
     final random = Random();
     final indice = random.nextInt(dados.length);
-    return dados[indice][1]; // Pegando só a palavra
+    return dados[indice][1];
   }
 
   @override

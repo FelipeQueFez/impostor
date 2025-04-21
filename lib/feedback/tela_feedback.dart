@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TelaFeedback extends StatelessWidget {
-  final VoidCallback? onReiniciar;
+  final VoidCallback onReiniciar;
 
-  const TelaFeedback({super.key, this.onReiniciar});
+  const TelaFeedback({super.key, required this.onReiniciar});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,10 @@ class TelaFeedback extends StatelessWidget {
               ElevatedButton.icon(
                 icon: const Icon(Icons.refresh),
                 label: const Text('Jogar novamente'),
-                onPressed: onReiniciar ??
-                    () {
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    },
+                onPressed: () {
+                  onReiniciar();
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                },
               )
             ],
           ),
