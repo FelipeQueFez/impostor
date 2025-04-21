@@ -25,6 +25,9 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
       case 'Animal':
         caminho = 'assets/animal.csv';
         break;
+      case 'Filme':
+        caminho = 'assets/filme.csv';
+        break;
       default:
         caminho = 'assets/comida.csv';
     }
@@ -54,7 +57,7 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
 
   @override
   Widget build(BuildContext context) {
-    final temas = ['Comida', 'Animal'];
+    final temas = ['Comida', 'Animal', 'Filme'];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Escolha o Tema')),
