@@ -52,48 +52,88 @@ class _TelaMostrarPalavraState extends State<TelaMostrarPalavra> {
     final isImpostor = jogadorAtual == impostorIndex;
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        title:
-            Text('Jogador ${jogadorAtual + 1}/${widget.participantes.length}'),
+        title: Text(
+            'Jogador ${jogadorAtual + 1}/${widget.participantes.length}',
+            style: const TextStyle(fontSize: 22)),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Center(
         child: mostrarPalavra
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    isImpostor
-                        ? 'Você NÃO recebeu a palavra!'
-                        : 'Palavra: ${widget.palavra}',
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: proximoJogador,
-                    child: const Text('Próximo jogador'),
-                  )
-                ],
+            ? Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      isImpostor ? Icons.visibility_off : Icons.visibility,
+                      size: 80,
+                      color: isImpostor ? Colors.redAccent : Colors.green,
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      isImpostor
+                          ? 'Você NÃO recebeu a palavra!'
+                          : 'Palavra:\n"${widget.palavra}"',
+                      style: const TextStyle(
+                          fontSize: 26, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 40),
+                    ElevatedButton.icon(
+                      onPressed: proximoJogador,
+                      icon: const Icon(Icons.arrow_forward),
+                      label: const Text('Próximo jogador',
+                          style: TextStyle(fontSize: 20)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple,
+                        foregroundColor: Colors.white,
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Passar o celular para:\n\n$nome',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        mostrarPalavra = true;
-                      });
-                    },
-                    child: const Text('Mostrar palavra'),
-                  )
-                ],
+            : Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.person,
+                        size: 80, color: Colors.deepPurple),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Passe o celular para:\n\n$nome',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(height: 40),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          mostrarPalavra = true;
+                        });
+                      },
+                      icon: const Icon(Icons.remove_red_eye),
+                      label: const Text('Mostrar palavra',
+                          style: TextStyle(fontSize: 20)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple,
+                        foregroundColor: Colors.white,
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
       ),
     );

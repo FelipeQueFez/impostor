@@ -28,6 +28,9 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
       case 'Filme':
         caminho = 'assets/filme.csv';
         break;
+      case 'Objeto':
+        caminho = 'assets/objeto.csv';
+        break;
       default:
         caminho = 'assets/comida.csv';
     }
@@ -57,26 +60,39 @@ class _TelaEscolherTemaState extends State<TelaEscolherTema> {
 
   @override
   Widget build(BuildContext context) {
-    final temas = [
-      'Comida',
-      'Animal',
-      'Filme',
-      'Objeto',
-    ];
+    final temas = ['Comida', 'Animal', 'Filme', 'Objeto'];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Escolha o Tema')),
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        title: const Text('Escolha o Tema', style: TextStyle(fontSize: 24)),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
       body: carregando
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               itemCount: temas.length,
               itemBuilder: (context, index) {
                 final tema = temas[index];
                 return Card(
+                  elevation: 4,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14)),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   child: ListTile(
-                    title: Text(tema),
-                    trailing: const Icon(Icons.arrow_forward_ios),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 18),
+                    title: Text(
+                      tema,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.w600),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios,
+                        color: Colors.deepPurple),
                     onTap: () => _carregarTema(tema),
                   ),
                 );
