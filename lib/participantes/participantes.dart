@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../palavra/tela_palavra.dart';
+import '../palavra/tela_mostrar_palavra.dart';
 
 class ParticipantesPage extends StatefulWidget {
   final List<List<dynamic>> dados;
@@ -30,7 +30,10 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TelaPalavra(palavra: palavra),
+        builder: (_) => TelaMostrarPalavra(
+          participantes: _participantes,
+          palavra: palavra,
+        ),
       ),
     );
   }
